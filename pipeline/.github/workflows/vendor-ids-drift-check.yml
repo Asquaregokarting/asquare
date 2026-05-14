@@ -1,0 +1,139 @@
+name: vendorIds drift watch
+
+# Weekly dry-run of the booking-vendor-ids backfill. The script is
+# read-only (no --apply); we just want the "would update" count. If
+# anything is non-zero, a tracking issue is opened or refreshed so a
+# human investigates which write path skipped the field.
+#
+# Triggers:
+#   - Monday 09:00 IST (= 03:30 UTC) on a cron schedule
+#   - workflow_dispatch for ad-hoc runs
+#
+# Required repo secrets:
+#   FIREBASE_SERVICE_ACCOUNT   JSON contents of serviceAccountKey.json
+#                              (the same key the script expects at the
+#                              project root). Add at:
+#                              Settings → Secrets and variables → Actions.
+
+on:
+  schedule:
+    - cron: '30 3 * * 1' # Monday 03:30 UTC = Monday 09:00 IST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: vendor-ids-drift-check
+  cancel-in-progress: false
+
+jobs:
+  drift-check:
+    name: Dry-run backfill and report drift
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Materialise Firebase service account
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then
+            echo "::error::FIREBASE_SERVICE_ACCOUNT secret is not set. Add it under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > serviceAccountKey.json
+
+      - name: Run dry-run backfill
+        id: drift
+        run: |
+          set -o pipefail
+          OUTPUT=$(node scripts/backfill-booking-vendor-ids.cjs)
+          echo "$OUTPUT"
+          # The summary line we care about looks like:
+          #   "  would update: <N>"
+          # Extract the number; default to 0 if the line is missing.
+          COUNT=$(echo "$OUTPUT" | grep -E '^\s*would update' | grep -oE '[0-9]+' | head -1 || true)
+          COUNT=${COUNT:-0}
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          # Capture the sample-changes block (up to 12 lines) for the
+          # alert body. If "would update" is 0 the block won't exist —
+          # that's fine, the issue body just gets the empty samples.
+          SAMPLES=$(echo "$OUTPUT" | awk '/sample changes/,/sample/ && !/sample changes/' | head -20 || true)
+          {
+            echo 'samples<<__EOF__'
+            echo "$SAMPLES"
+            echo '__EOF__'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Remove service account key
+        if: always()
+        run: rm -f serviceAccountKey.json
+
+      - name: Report clean
+        if: steps.drift.outputs.count == '0'
+        run: 'echo "vendorIds drift = 0 (clean)"'
+
+      - name: Open or refresh tracking issue (drift detected)
+        if: steps.drift.outputs.count != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const count = '${{ steps.drift.outputs.count }}';
+            const samples = `${{ steps.drift.outputs.samples }}`;
+            const title = 'vendorIds drift watch: bookings missing vendorIds';
+            const body = [
+              `The weekly drift check found **${count}** booking${count === '1' ? '' : 's'} that should have a populated \`vendorIds\` field but do not.`,
+              '',
+              'Each one is a booking that escaped the canonical write paths (see `src/pipeline/api/firestore-utils.ts: deriveVendorIds`). Vendors looking at the ThirdParty bookings module will not see these rows.',
+              '',
+              '**Sample IDs** (first batch):',
+              '```',
+              samples.trim() || '(no samples in workflow output)',
+              '```',
+              '',
+              '**To clear:**',
+              '1. Identify the write path that produced these. Check `git log --since="last sunday"` on `src/lib/unified-booking.ts` and `src/pipeline/api/billing-firestore.ts` for new code paths.',
+              '2. Patch the missing writer to call `deriveVendorIds` (`src/pipeline/api/vendor-ids-contract.test.ts` enforces the canonical writers).',
+              '3. Run `node scripts/backfill-booking-vendor-ids.cjs --apply` locally to flush the residual rows.',
+              '',
+              `_Workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}_`,
+            ].join('\n');
+
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'vendor-ids-drift',
+              per_page: 5,
+            });
+
+            if (existing.data.length > 0) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.data[0].number,
+                body,
+              });
+              core.notice(`Refreshed existing issue #${existing.data[0].number}`);
+              return;
+            }
+
+            const created = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ['vendor-ids-drift', 'bug'],
+            });
+            core.notice(`Opened tracking issue #${created.data.number}`);
