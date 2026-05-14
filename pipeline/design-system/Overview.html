@@ -1,0 +1,478 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>A Square — Design System Overview</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    />
+    <style>
+      :root {
+        --bg: #0a0a0a;
+        --panel: #121212;
+        --line: rgba(255, 255, 255, 0.06);
+        --text: #f5f5f5;
+        --muted: #a3a3a3;
+        --dim: #707070;
+        --accent: #0066ff;
+        --accent2: #ff6b00;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Inter', system-ui, sans-serif;
+      }
+
+      .page {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 56px 40px 80px;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: end;
+        gap: 32px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 56px;
+      }
+      .eyebrow {
+        font-size: 11px;
+        color: var(--dim);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-weight: 700;
+        margin-bottom: 14px;
+        font-family: 'JetBrains Mono', monospace;
+      }
+      h1 {
+        font-family: 'Outfit';
+        font-weight: 800;
+        font-size: 56px;
+        line-height: 1;
+        letter-spacing: -0.025em;
+        margin: 0;
+      }
+      .sub {
+        color: var(--muted);
+        font-size: 16px;
+        max-width: 640px;
+        margin-top: 14px;
+        line-height: 1.55;
+      }
+      .meta {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        color: var(--dim);
+        text-align: right;
+        line-height: 1.7;
+      }
+      .meta b {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .section {
+        margin-bottom: 64px;
+      }
+      .sec-head {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 20px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--line);
+      }
+      .sec-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        color: var(--dim);
+        letter-spacing: 0.08em;
+      }
+      .sec-title {
+        font-family: 'Outfit';
+        font-weight: 700;
+        font-size: 28px;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+      .sec-sub {
+        color: var(--muted);
+        font-size: 13px;
+        margin-left: auto;
+      }
+
+      .grid {
+        display: grid;
+        gap: 18px;
+      }
+      .grid.cols-1 {
+        grid-template-columns: 1fr;
+      }
+      .grid.cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .grid.cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @media (max-width: 1100px) {
+        .grid.cols-3 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 720px) {
+        .grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition:
+          border-color 0.25s ease,
+          transform 0.25s ease;
+      }
+      .card:hover {
+        border-color: rgba(255, 255, 255, 0.14);
+      }
+      .card .head {
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .card .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: var(--accent);
+      }
+      .card .name {
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.02em;
+      }
+      .card .tag {
+        margin-left: auto;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        color: var(--dim);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+      .card .open {
+        margin-left: 8px;
+        font-size: 11px;
+        color: var(--dim);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      .card .open:hover {
+        color: var(--text);
+      }
+      .frame {
+        width: 100%;
+        border: 0;
+        display: block;
+        background: #050505;
+      }
+      .frame.tall {
+        height: 320px;
+      }
+      .frame.xtall {
+        height: 420px;
+      }
+      .frame.huge {
+        height: 520px;
+      }
+
+      /* dot color variants */
+      .v-type .dot {
+        background: #4d94ff;
+      }
+      .v-color .dot {
+        background: #ff6b00;
+      }
+      .v-space .dot {
+        background: #4ade80;
+      }
+      .v-comp .dot {
+        background: #facc15;
+      }
+      .v-brand .dot {
+        background: #f87171;
+      }
+
+      footer {
+        margin-top: 80px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        color: var(--dim);
+        font-size: 12px;
+        font-family: 'JetBrains Mono', monospace;
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">A² Design System · v1 · Apr 2026</div>
+          <h1>
+            A Square GoKarting<br /><span style="color: var(--muted); font-weight: 600"
+              >Design System Preview</span
+            >
+          </h1>
+          <div class="sub">
+            Seventeen design-system cards for the Customer mobile app (dark-only glassmorphism with
+            aurora + electric blue) and the Pipeline admin console (deep-navy slate with teal
+            accent). Hover the interactive cards to see motion.
+          </div>
+        </div>
+        <div class="meta">
+          <b>17</b> cards<br />
+          <b>5</b> sections<br />
+          <b>2</b> products<br />
+          <b>↓</b> scroll
+        </div>
+      </div>
+
+      <!-- 01 — TYPE -->
+      <section class="section v-type">
+        <div class="sec-head">
+          <div class="sec-num">01</div>
+          <h2 class="sec-title">Type</h2>
+          <div class="sec-sub">
+            Outfit + Inter + JetBrains Mono · headline scale · ticket numerals
+          </div>
+        </div>
+        <div class="grid cols-1">
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Display Scale</span
+              ><span class="tag">type-display</span
+              ><a class="open" href="preview/type-display.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame tall" src="preview/type-display.html"></iframe>
+          </div>
+        </div>
+        <div class="grid cols-2" style="margin-top: 18px">
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Body &amp; Eyebrow</span
+              ><span class="tag">type-body</span
+              ><a class="open" href="preview/type-body.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame tall" src="preview/type-body.html"></iframe>
+          </div>
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Mono &amp; Ticket Numerals</span
+              ><span class="tag">type-mono</span
+              ><a class="open" href="preview/type-mono-ticket.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame tall" src="preview/type-mono-ticket.html"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 — COLORS -->
+      <section class="section v-color">
+        <div class="sec-head">
+          <div class="sec-num">02</div>
+          <h2 class="sec-title">Colors</h2>
+          <div class="sec-sub">Brand primary + secondary · dark scale · pipeline semantic</div>
+        </div>
+        <div class="grid cols-2">
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Primary — Electric Blue</span
+              ><span class="tag">brand</span
+              ><a class="open" href="preview/colors-primary.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame tall" src="preview/colors-primary.html"></iframe>
+          </div>
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Secondary — Orange</span
+              ><span class="tag">brand</span
+              ><a class="open" href="preview/colors-secondary.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame tall" src="preview/colors-secondary.html"></iframe>
+          </div>
+        </div>
+        <div class="grid cols-2" style="margin-top: 18px">
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Dark Scale</span
+              ><span class="tag">surface</span
+              ><a class="open" href="preview/colors-dark-scale.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame tall" src="preview/colors-dark-scale.html"></iframe>
+          </div>
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Semantic (Pipeline)</span
+              ><span class="tag">admin</span
+              ><a class="open" href="preview/colors-semantic.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame tall" src="preview/colors-semantic.html"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — SPACING -->
+      <section class="section v-space">
+        <div class="sec-head">
+          <div class="sec-num">03</div>
+          <h2 class="sec-title">Spacing</h2>
+          <div class="sec-sub">2/3 scale · radii · shadow + glow tokens</div>
+        </div>
+        <div class="grid cols-1">
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Spacing Scale (2.67px base)</span
+              ><span class="tag">--space-*</span
+              ><a class="open" href="preview/spacing-scale.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame tall" src="preview/spacing-scale.html"></iframe>
+          </div>
+        </div>
+        <div class="grid cols-2" style="margin-top: 18px">
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Corner Radii</span
+              ><span class="tag">--radius-*</span
+              ><a class="open" href="preview/spacing-radii.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame tall" src="preview/spacing-radii.html"></iframe>
+          </div>
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Shadows &amp; Glows</span
+              ><span class="tag">--glow / --shadow</span
+              ><a class="open" href="preview/spacing-shadows.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame xtall" src="preview/spacing-shadows.html"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — COMPONENTS -->
+      <section class="section v-comp">
+        <div class="sec-head">
+          <div class="sec-num">04</div>
+          <h2 class="sec-title">Components</h2>
+          <div class="sec-sub">Buttons · Inputs · Badges · Cards · Nav</div>
+        </div>
+        <div class="grid cols-1">
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span
+              ><span class="name"
+                >Buttons — Customer
+                <em
+                  style="color: var(--dim); font-style: normal; font-weight: 400; margin-left: 6px"
+                  >· hover me</em
+                ></span
+              ><span class="tag">customer</span
+              ><a class="open" href="preview/components-buttons-customer.html" target="_blank"
+                >open ↗</a
+              >
+            </div>
+            <iframe class="frame tall" src="preview/components-buttons-customer.html"></iframe>
+          </div>
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Buttons — Pipeline</span
+              ><span class="tag">admin</span
+              ><a class="open" href="preview/components-buttons-pipeline.html" target="_blank"
+                >open ↗</a
+              >
+            </div>
+            <iframe class="frame tall" src="preview/components-buttons-pipeline.html"></iframe>
+          </div>
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span
+              ><span class="name"
+                >Badges &amp; Offer Pills
+                <em
+                  style="color: var(--dim); font-style: normal; font-weight: 400; margin-left: 6px"
+                  >· hover me</em
+                ></span
+              ><span class="tag">status</span
+              ><a class="open" href="preview/components-badges.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame tall" src="preview/components-badges.html"></iframe>
+          </div>
+        </div>
+        <div class="grid cols-2" style="margin-top: 18px">
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Inputs</span><span class="tag">forms</span
+              ><a class="open" href="preview/components-inputs.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame tall" src="preview/components-inputs.html"></iframe>
+          </div>
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Glass Cards</span
+              ><span class="tag">surface</span
+              ><a class="open" href="preview/components-glass-cards.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame xtall" src="preview/components-glass-cards.html"></iframe>
+          </div>
+        </div>
+        <div class="grid cols-1" style="margin-top: 18px">
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Navigation Surfaces</span
+              ><span class="tag">nav</span
+              ><a class="open" href="preview/components-nav.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame huge" src="preview/components-nav.html"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — BRAND -->
+      <section class="section v-brand">
+        <div class="sec-head">
+          <div class="sec-num">05</div>
+          <h2 class="sec-title">Brand</h2>
+          <div class="sec-sub">Logos for dark &amp; light surfaces</div>
+        </div>
+        <div class="grid cols-1">
+          <div class="card">
+            <div class="head">
+              <span class="dot"></span><span class="name">Logos</span><span class="tag">brand</span
+              ><a class="open" href="preview/brand-logos.html" target="_blank">open ↗</a>
+            </div>
+            <iframe class="frame tall" src="preview/brand-logos.html"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <span>A Square GoKarting · Design System v1</span>
+        <span>Updated Apr 2026 · 17 cards</span>
+      </footer>
+    </div>
+  </body>
+</html>

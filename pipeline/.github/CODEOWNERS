@@ -1,0 +1,44 @@
+# CODEOWNERS — enforces review on the dual-app boundary documented in CLAUDE.md.
+#
+# Replace @Ironman4ever with actual GitHub team handles
+# (e.g. @Asquaregokarting/customer-team) once teams are set up.
+#
+# Lines later in the file take precedence over earlier lines for the same path.
+
+# Default owner — every PR gets reviewed by at least one core maintainer
+*                                       @Ironman4ever
+
+# Customer app boundary
+/src/CustomerApp.tsx                    @Ironman4ever
+/src/main.tsx                           @Ironman4ever
+/src/pages/                             @Ironman4ever
+/src/services/                          @Ironman4ever
+/src/components/                        @Ironman4ever
+/src/contexts/                          @Ironman4ever
+/src/hooks/                             @Ironman4ever
+
+# Pipeline admin boundary
+/src/PipelineApp.tsx                    @Ironman4ever
+/src/pipeline/                          @Ironman4ever
+
+# Shared infrastructure — extra scrutiny when changed
+/src/lib/firebase.ts                    @Ironman4ever
+/src/lib/logger.ts                      @Ironman4ever
+/src/types/                             @Ironman4ever
+
+# Cloud Functions
+/functions/                             @Ironman4ever
+
+# Build / CI / tooling
+/.github/                               @Ironman4ever
+/vite.config.ts                         @Ironman4ever
+/vitest.config.ts                       @Ironman4ever
+/tsconfig*.json                         @Ironman4ever
+/eslint.config.js                       @Ironman4ever
+/capacitor.config*.ts                   @Ironman4ever
+/package.json                           @Ironman4ever
+/package-lock.json                      @Ironman4ever
+
+# Project docs (CLAUDE.md is normative for AI agents — changes need a heads up)
+/CLAUDE.md                              @Ironman4ever
+/docs/                                  @Ironman4ever

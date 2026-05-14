@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #050505;
+        color: #fff;
+        font-family: 'Inter', sans-serif;
+      }
+      .card {
+        padding: 24px;
+        min-height: 160px;
+        display: flex;
+        gap: 16px;
+        flex-direction: column;
+      }
+      .f {
+        width: 100%;
+        background: rgba(10, 10, 10, 0.5);
+        border: 1px solid #171717;
+        border-radius: 12px;
+        padding: 12px 16px;
+        color: #fff;
+        font-family: inherit;
+        outline: none;
+        font-size: 14px;
+      }
+      .f.focused {
+        border-color: #0066ff;
+        box-shadow: 0 0 0 1px #0066ff;
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+      }
+      .row .f {
+        flex: 1;
+      }
+      .lab {
+        font-family: 'Outfit';
+        font-weight: 700;
+        font-size: 16px;
+      }
+      .sub {
+        color: #b3b3b3;
+        font-size: 12px;
+        margin-top: -8px;
+      }
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: #b3b3b3;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 600;
+      }
+      .tag::before {
+        content: '';
+        width: 14px;
+        height: 1px;
+        background: #b3b3b3;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="lab">Input Field</div>
+      <div class="sub">
+        Dark translucent fill, 1px border; focus adds a 1px blue ring plus border color.
+      </div>
+      <span class="tag">DEFAULT</span>
+      <input class="f" placeholder="Phone number" />
+      <span class="tag">FOCUSED</span>
+      <input class="f focused" value="7305550199" />
+    </div>
+  </body>
+</html>

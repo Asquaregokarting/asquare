@@ -1,0 +1,48 @@
+import {
+  createFirestoreLead,
+  getFirestoreLead,
+  listFirestoreLeads,
+  updateFirestoreLead,
+  deleteFirestoreLead,
+  claimFirestoreLead,
+  assignFirestoreLead,
+  updateLeadStatus,
+  submitLeadFeedback,
+  addLeadNote,
+  scheduleLeadCallback,
+  setLeadPresence,
+  clearLeadPresence,
+  getLeadTimeline,
+  getLeadMetrics,
+  recoverAbandonedCarts,
+  logCallOutcome,
+  importLeadsBatch,
+  type CreateLeadPayload,
+  type ListLeadsFilter,
+} from "./leads-firestore";
+import { getLeadAutomationConfig, updateLeadAutomationConfig } from "./lead-config-firestore";
+
+export const leadsApi = {
+  create: createFirestoreLead,
+  get: getFirestoreLead,
+  list: listFirestoreLeads,
+  update: updateFirestoreLead,
+  delete: deleteFirestoreLead,
+  claim: claimFirestoreLead,
+  assign: assignFirestoreLead,
+  updateStatus: updateLeadStatus,
+  submitFeedback: submitLeadFeedback,
+  addNote: addLeadNote,
+  scheduleCallback: scheduleLeadCallback,
+  setPresence: setLeadPresence,
+  clearPresence: clearLeadPresence,
+  getTimeline: getLeadTimeline,
+  getMetrics: getLeadMetrics,
+  recoverAbandonedCarts,
+  logCallOutcome,
+  importBatch: importLeadsBatch,
+  getConfig: getLeadAutomationConfig,
+  updateConfig: updateLeadAutomationConfig,
+};
+
+export type { CreateLeadPayload, ListLeadsFilter };

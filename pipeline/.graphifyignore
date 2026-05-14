@@ -1,0 +1,31 @@
+# Bundled / minified output
+dist/
+build/
+.vite/
+
+# Dependencies
+node_modules/
+
+# Firebase emulator & generated
+.firebase/
+firebase-debug.log
+
+# Capacitor native builds
+android/
+ios/
+
+# Cloud Functions compiled output
+functions/lib/
+
+# Graphify own output
+graphify-out/
+
+# Test fixtures / snapshots
+**/__snapshots__/
+coverage/
+
+# Lock files and generated
+*.min.js
+*.min.ts
+*.bundle.js
+*.chunk.js

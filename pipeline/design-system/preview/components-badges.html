@@ -1,0 +1,353 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #050505;
+        color: #fff;
+        font-family: 'Inter', sans-serif;
+      }
+      .card {
+        padding: 28px;
+        min-height: 220px;
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .lab {
+        width: 100%;
+        font-family: 'Inter';
+        font-weight: 800;
+        font-size: 16px;
+        letter-spacing: -0.01em;
+      }
+      .sub {
+        color: #b3b3b3;
+        font-size: 12px;
+        width: 100%;
+        margin-top: -8px;
+        margin-bottom: 8px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 13px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        border: 1px solid;
+        position: relative;
+        overflow: hidden;
+        cursor: default;
+        transition:
+          transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+          box-shadow 0.3s ease,
+          border-color 0.3s ease;
+      }
+      .pill:hover {
+        transform: translateY(-2px);
+      }
+      .pill .icn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .pill:hover .icn {
+        transform: rotate(-8deg) scale(1.15);
+      }
+
+      /* shine sweep on hover */
+      .pill::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          110deg,
+          transparent 35%,
+          rgba(255, 255, 255, 0.22) 50%,
+          transparent 65%
+        );
+        transform: translateX(-120%);
+        transition: transform 0.7s ease;
+        pointer-events: none;
+      }
+      .pill:hover::before {
+        transform: translateX(120%);
+      }
+
+      /* ----- variants ----- */
+      .your {
+        background: rgba(255, 107, 0, 0.1);
+        border-color: rgba(255, 107, 0, 0.3);
+        color: #ffa347;
+      }
+      .your:hover {
+        box-shadow: 0 6px 18px rgba(255, 107, 0, 0.25);
+        border-color: rgba(255, 107, 0, 0.6);
+      }
+
+      .cashback {
+        background: rgba(0, 102, 255, 0.1);
+        border-color: rgba(0, 102, 255, 0.3);
+        color: #4d94ff;
+      }
+      .cashback:hover {
+        box-shadow: 0 6px 18px rgba(0, 102, 255, 0.3);
+        border-color: rgba(0, 102, 255, 0.6);
+      }
+      .cashback .icn {
+        animation: coin 2.6s ease-in-out infinite;
+      }
+      @keyframes coin {
+        0%,
+        100% {
+          transform: rotateY(0);
+        }
+        50% {
+          transform: rotateY(180deg);
+        }
+      }
+
+      .new {
+        background: rgba(74, 222, 128, 0.1);
+        border-color: rgba(74, 222, 128, 0.35);
+        color: #4ade80;
+      }
+      .new:hover {
+        box-shadow: 0 6px 18px rgba(74, 222, 128, 0.25);
+        border-color: rgba(74, 222, 128, 0.6);
+      }
+
+      .special {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.12);
+        color: #d4d4d4;
+      }
+      .special:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+
+      .crown {
+        background: linear-gradient(135deg, rgba(255, 107, 0, 0.18), rgba(255, 160, 71, 0.08));
+        border-color: rgba(255, 107, 0, 0.4);
+        color: #ffb570;
+        box-shadow: inset 0 0 12px rgba(255, 107, 0, 0.08);
+      }
+      .crown:hover {
+        box-shadow:
+          0 6px 20px rgba(255, 107, 0, 0.35),
+          inset 0 0 18px rgba(255, 107, 0, 0.15);
+        border-color: rgba(255, 170, 90, 0.7);
+      }
+      .crown .icn {
+        animation: sparkle 2.2s ease-in-out infinite;
+      }
+      @keyframes sparkle {
+        0%,
+        100% {
+          transform: scale(1) rotate(0);
+          filter: drop-shadow(0 0 0 rgba(255, 160, 71, 0));
+        }
+        50% {
+          transform: scale(1.2) rotate(18deg);
+          filter: drop-shadow(0 0 6px rgba(255, 160, 71, 0.9));
+        }
+      }
+
+      .warning {
+        background: rgba(250, 204, 21, 0.1);
+        border-color: rgba(250, 204, 21, 0.35);
+        color: #facc15;
+      }
+      .warning:hover {
+        box-shadow: 0 6px 18px rgba(250, 204, 21, 0.25);
+        border-color: rgba(250, 204, 21, 0.6);
+      }
+      .warning .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #facc15;
+        animation: ping 1.4s ease-in-out infinite;
+      }
+      @keyframes ping {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 7px rgba(250, 204, 21, 0);
+        }
+      }
+
+      .critical {
+        background: rgba(248, 113, 113, 0.1);
+        border-color: rgba(248, 113, 113, 0.4);
+        color: #f87171;
+      }
+      .critical:hover {
+        box-shadow: 0 6px 18px rgba(248, 113, 113, 0.3);
+        border-color: rgba(248, 113, 113, 0.7);
+      }
+      .critical .icn {
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .critical:hover .icn {
+        transform: rotate(90deg) scale(1.15);
+      }
+
+      .live {
+        background: rgba(74, 222, 128, 0.1);
+        border-color: rgba(74, 222, 128, 0.4);
+        color: #4ade80;
+      }
+      .live:hover {
+        box-shadow: 0 6px 18px rgba(74, 222, 128, 0.3);
+        border-color: rgba(74, 222, 128, 0.7);
+      }
+      .live .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #4ade80;
+        animation: ping-green 1.4s ease-in-out infinite;
+      }
+      @keyframes ping-green {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 7px rgba(74, 222, 128, 0);
+        }
+      }
+
+      /* entrance on load */
+      .card .pill {
+        animation: rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+      }
+      .card .pill:nth-child(3) {
+        animation-delay: 0.04s;
+      }
+      .card .pill:nth-child(4) {
+        animation-delay: 0.08s;
+      }
+      .card .pill:nth-child(5) {
+        animation-delay: 0.12s;
+      }
+      .card .pill:nth-child(6) {
+        animation-delay: 0.16s;
+      }
+      .card .pill:nth-child(7) {
+        animation-delay: 0.2s;
+      }
+      .card .pill:nth-child(8) {
+        animation-delay: 0.24s;
+      }
+      .card .pill:nth-child(9) {
+        animation-delay: 0.28s;
+      }
+      .card .pill:nth-child(10) {
+        animation-delay: 0.32s;
+      }
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="lab">Badges &amp; Offer Pills</div>
+      <div class="sub">
+        Hover for shine sweep + lift. Live states pulse, rewards shimmer, crowns sparkle. Flavored
+        by intent: orange rewards, blue cashback, green success, yellow pending, red critical.
+      </div>
+
+      <span class="pill your"><span class="icn">★</span>Your Reward</span>
+
+      <span class="pill cashback">
+        <span class="icn">
+          <svg
+            width="11"
+            height="11"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path d="M15 9a4 4 0 1 0 0 6" />
+          </svg>
+        </span>
+        Cashback
+      </span>
+
+      <span class="pill new"><span class="icn">✦</span>New Users</span>
+
+      <span class="pill special"><span class="icn">◇</span>Special</span>
+
+      <span class="pill crown"><span class="icn">◆</span>Gold Member</span>
+
+      <span class="pill warning"><span class="icn dot"></span>Payment Pending</span>
+
+      <span class="pill critical">
+        <span class="icn">
+          <svg
+            width="10"
+            height="10"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.6"
+            stroke-linecap="round"
+          >
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </span>
+        Cancelled
+      </span>
+
+      <span class="pill live"><span class="icn dot"></span>Live</span>
+
+      <span class="pill new">
+        <span class="icn">
+          <svg
+            width="10"
+            height="10"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12l5 5L20 7" />
+          </svg>
+        </span>
+        On Time
+      </span>
+    </div>
+  </body>
+</html>

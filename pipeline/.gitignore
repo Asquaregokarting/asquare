@@ -1,0 +1,71 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Editor directories
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Firebase
+.firebase/
+
+# Test coverage
+coverage/
+
+# Playwright
+playwright-report/
+test-results/
+.playwright/
+.playwright-mcp/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Sensitive key files (Razorpay, etc.)
+functions/key_id.txt
+functions/key_secret.txt
+~$interakt-whatsapp-templates.xlsx
+interakt-whatsapp-templates.xlsx
+
+# Firebase Admin SDK service account — do NOT commit
+serviceAccountKey.json
+service-account-key.json
+firebase-admin-key.json
+
+# Pre-merge backups from scripts/dedup-users.ts (contain full user trees, PII)
+scripts/backups/
+
+# Root-level backups directory written by ad-hoc cleanup scripts
+# (cross-branch ghost deletes, invoice dedupe, stale draft sweeps, etc).
+# Contain full booking / ledger / invoice docs and PII — never commit.
+/backups/
+
+# Ad-hoc dev screenshots and webhint config — not project assets
+/*.png
+.hintrc
+
+# Git worktrees (managed by superpowers workflow)
+.worktrees/
+
+# Stash recovery sandbox (temporary; see docs/superpowers/plans/2026-04-16-merge-customers-members.md)
+_stash-recovery/
+
+electron/

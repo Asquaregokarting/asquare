@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "rzp-mcp-server": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "mcp-remote",
+        "https://mcp.razorpay.com/mcp",
+        "--header",
+        "Authorization: Basic cnpwX2xpdmVfY0V1Z2NyVGZzUWVCMjE6ZzNIM29OUEpuNzJGck9XdktmRG80VlFP"
+      ]
+    },
+    "shadcn": {
+      "command": "cmd",
+      "args": ["/c", "npx", "shadcn@latest", "mcp"]
+    },
+    "code-review-graph": {
+      "command": "uvx",
+      "args": ["code-review-graph", "serve"],
+      "type": "stdio"
+    }
+  }
+}

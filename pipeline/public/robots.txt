@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+Allow: /activities
+Allow: /helicopter-bookings
+Allow: /birthday
+Allow: /corporate
+Allow: /school-groups
+Allow: /privacy
+Allow: /terms
+Allow: /refund-policy
+Allow: /links
+
+# Disallow authenticated/internal routes
+Disallow: /bookings
+Disallow: /wallet
+Disallow: /profile
+Disallow: /cart
+Disallow: /checkout
+Disallow: /play
+Disallow: /spin-and-win
+Disallow: /waiting-list
+Disallow: /check-in
+Disallow: /boarding-pass
+
+# Pipeline admin
+Disallow: /?app=pipeline
+
+Sitemap: https://app.asquaregokarting.com/sitemap.xml

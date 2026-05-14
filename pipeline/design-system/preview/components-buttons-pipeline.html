@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Sora:wght@600;700&display=swap"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #000519;
+        color: #f1f5f9;
+        font-family: 'Space Grotesk', sans-serif;
+      }
+      .card {
+        padding: 28px;
+        min-height: 160px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .btn {
+        font-weight: 600;
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid;
+        cursor: pointer;
+        font-size: 13px;
+        min-height: 40px;
+      }
+      .neutral {
+        border-color: rgba(51, 65, 85, 0.55);
+        background: #13203d;
+        color: #f1f5f9;
+      }
+      .primary {
+        border-color: rgba(45, 212, 191, 0.45);
+        background: #2dd4bf;
+        color: #000519;
+      }
+      .info {
+        border-color: rgba(96, 165, 250, 0.35);
+        background: rgba(96, 165, 250, 0.1);
+        color: #60a5fa;
+      }
+      .success {
+        border-color: rgba(74, 222, 128, 0.35);
+        background: rgba(74, 222, 128, 0.1);
+        color: #4ade80;
+      }
+      .warning {
+        border-color: rgba(250, 204, 21, 0.35);
+        background: rgba(250, 204, 21, 0.1);
+        color: #facc15;
+      }
+      .danger {
+        border-color: rgba(248, 113, 113, 0.4);
+        background: rgba(248, 113, 113, 0.1);
+        color: #f87171;
+      }
+      .lab {
+        width: 100%;
+        font-family: 'Sora';
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: -4px;
+      }
+      .sub {
+        color: #ffffff;
+        opacity: 0.75;
+        font-size: 12px;
+        width: 100%;
+        margin-top: -14px;
+        margin-bottom: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="lab">Buttons — Pipeline Admin</div>
+      <div class="sub">
+        Teal primary; semantic variants use 10% fill + 35% border + colored text.
+      </div>
+      <button class="btn neutral">Neutral</button>
+      <button class="btn primary">Primary</button>
+      <button class="btn info">Info</button>
+      <button class="btn success">Success</button>
+      <button class="btn warning">Warning</button>
+      <button class="btn danger">Danger</button>
+    </div>
+  </body>
+</html>

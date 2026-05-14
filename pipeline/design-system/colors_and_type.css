@@ -1,0 +1,433 @@
+/* A Square GoKarting — Colors & Type Tokens
+ * Customer app (dark-only) + Pipeline admin (light + dark)
+ */
+
+/* ============================================================
+   WEB FONTS
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&family=Sora:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Oswald:wght@400;500;700&display=swap');
+
+:root {
+  /* ------------------------------------------------------------
+     BRAND COLORS
+     ------------------------------------------------------------ */
+  /* Primary — electric blue (CTAs, focus, glow) */
+  --primary-50: #e6f0ff;
+  --primary-100: #b3d1ff;
+  --primary-200: #80b3ff;
+  --primary-300: #4d94ff;
+  --primary-400: #1a75ff;
+  --primary-500: #0066ff; /* brand primary */
+  --primary-600: #0052cc;
+  --primary-700: #003d99;
+  --primary-800: #002966;
+  --primary-900: #001433;
+
+  /* Secondary — vivid orange (highlights, membership accents) */
+  --secondary-50: #fff5eb;
+  --secondary-100: #ffe0c2;
+  --secondary-200: #ffcc99;
+  --secondary-300: #ffb870;
+  --secondary-400: #ffa347;
+  --secondary-500: #ff6b00; /* brand secondary */
+  --secondary-600: #cc5600;
+  --secondary-700: #994000;
+  --secondary-800: #662b00;
+  --secondary-900: #331500;
+
+  /* Dark scale — surfaces, borders, muted text (customer app) */
+  --dark-50: #f5f5f5;
+  --dark-100: #e0e0e0;
+  --dark-200: #b3b3b3;
+  --dark-300: #808080;
+  --dark-400: #4d4d4d;
+  --dark-500: #2a2a2a;
+  --dark-600: #1f1f1f;
+  --dark-700: #171717;
+  --dark-800: #0f0f0f;
+  --dark-900: #0a0a0a;
+  --dark-950: #050505; /* deep black base */
+
+  /* Membership / status accents (used in customer boarding pass + tiers) */
+  --gold-400: #eab308;
+  --gold-500: #ca8a04;
+  --success-400: #4ade80;
+  --success-500: #22c55e;
+
+  /* ------------------------------------------------------------
+     CUSTOMER APP (dark-only) — semantic tokens
+     ------------------------------------------------------------ */
+  --color-base: var(--dark-950);
+  --color-panel: rgba(15, 15, 15, 0.6);
+  --color-surface: rgba(23, 23, 23, 0.4);
+  --color-text: #ffffff;
+  --color-muted: #b3b3b3;
+  --color-border: rgba(255, 255, 255, 0.05);
+  --color-accent: var(--primary-500);
+
+  /* Aurora orb tints (fixed, behind content) */
+  --aurora-blue: rgba(0, 102, 255, 0.08);
+  --aurora-orange: rgba(255, 107, 0, 0.08);
+
+  /* ------------------------------------------------------------
+     PIPELINE ADMIN — dark (default when `.dark` on html)
+     ------------------------------------------------------------ */
+  --pipeline-dark-base: rgb(2 6 23);
+  --pipeline-dark-panel: rgb(15 23 42);
+  --pipeline-dark-surface: rgb(30 41 59);
+  --pipeline-dark-text: rgb(241 245 249);
+  --pipeline-dark-muted: rgb(148 163 184);
+  --pipeline-dark-border: rgb(51 65 85);
+  --pipeline-dark-accent: rgb(45 212 191); /* teal */
+  --pipeline-dark-success: rgb(74 222 128);
+  --pipeline-dark-warning: rgb(250 204 21);
+  --pipeline-dark-critical: rgb(248 113 113);
+  --pipeline-dark-info: rgb(96 165 250);
+
+  /* Pipeline admin — light */
+  --pipeline-light-base: rgb(248 250 252);
+  --pipeline-light-panel: rgb(255 255 255);
+  --pipeline-light-surface: rgb(241 245 249);
+  --pipeline-light-text: rgb(15 23 42);
+  --pipeline-light-muted: rgb(71 85 105);
+  --pipeline-light-border: rgb(226 232 240);
+  --pipeline-light-accent: rgb(20 184 166);
+  --pipeline-light-success: rgb(16 185 129);
+  --pipeline-light-warning: rgb(245 158 11);
+  --pipeline-light-critical: rgb(239 68 68);
+  --pipeline-light-info: rgb(59 130 246);
+
+  /* ------------------------------------------------------------
+     TYPOGRAPHY — FAMILIES
+     ------------------------------------------------------------ */
+  /* Customer app */
+  --font-sans: 'Inter', 'Space Grotesk', system-ui, sans-serif;
+  --font-display: 'Outfit', 'Sora', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  /* Boarding pass uses Oswald for airport-code numerals */
+  --font-ticket: 'Oswald', 'Outfit', sans-serif;
+
+  /* Pipeline admin */
+  --font-pipeline-sans: 'Space Grotesk', system-ui, sans-serif;
+  --font-pipeline-display: 'Sora', 'Outfit', system-ui, sans-serif;
+
+  /* ------------------------------------------------------------
+     TYPE SCALE (customer app, dark surfaces)
+     ------------------------------------------------------------ */
+  --fs-display: 3rem; /* 48px — hero numerals, boarding code */
+  --fs-h1: 2.25rem; /* 36px */
+  --fs-h2: 1.75rem; /* 28px */
+  --fs-h3: 1.375rem; /* 22px */
+  --fs-h4: 1.125rem; /* 18px */
+  --fs-body: 1rem; /* 16px */
+  --fs-sm: 0.875rem; /* 14px */
+  --fs-xs: 0.75rem; /* 12px */
+  --fs-caption: 0.625rem; /* 10px — labels, pills */
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.25;
+  --lh-normal: 1.5;
+
+  --tracking-tight: -0.02em;
+  --tracking-wide: 0.08em; /* uppercase eyebrow */
+  --tracking-xwide: 0.14em; /* "WORKSPACE ROLE", gate labels */
+
+  /* ------------------------------------------------------------
+     RADII
+     ------------------------------------------------------------ */
+  --radius-sm: 0.5rem; /* 8px  — pills */
+  --radius-md: 0.75rem; /* 12px — inputs, buttons (btn-primary) */
+  --radius-lg: 1rem; /* 16px — panels */
+  --radius-xl: 1.25rem; /* 20px — boarding pass card */
+  --radius-2xl: 1rem; /* 16px — glass-card (Tailwind rounded-2xl) */
+  --radius-pill: 9999px;
+
+  /* ------------------------------------------------------------
+     SHADOWS & GLOWS
+     ------------------------------------------------------------ */
+  /* Halos / interaction */
+  --glow-primary: 0 0 20px rgba(0, 102, 255, 0.5);
+  --glow-secondary: 0 0 20px rgba(255, 107, 0, 0.5);
+  --glow-cta: 0 8px 30px rgba(0, 102, 255, 0.4);
+
+  /* Depth / surfaces */
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.37);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.25);
+  --shadow-panel: 0 18px 36px -26px rgba(0, 0, 0, 0.45);
+
+  /* ------------------------------------------------------------
+     SPACING (4px base)
+     ------------------------------------------------------------ */
+  --space-1: 2.67px;
+  --space-2: 5.33px;
+  --space-3: 8px;
+  --space-4: 10.67px;
+  --space-5: 13.33px;
+  --space-6: 16px;
+  --space-8: 21.33px;
+  --space-10: 26.67px;
+  --space-12: 32px;
+
+  /* ------------------------------------------------------------
+     MOTION
+     ------------------------------------------------------------ */
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-inout: cubic-bezier(0.4, 0, 0.6, 1);
+  --dur-fast: 150ms;
+  --dur-base: 200ms;
+  --dur-slow: 300ms;
+  --dur-float: 6s; /* aurora / float keyframes */
+}
+
+/* ============================================================
+   SEMANTIC TEXT ROLES (customer app dark surfaces)
+   Use as `class="h1"`, `class="eyebrow"`, etc.
+   ============================================================ */
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+}
+.h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+}
+.h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+}
+.h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  color: var(--color-text);
+}
+.h4 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  color: var(--color-text);
+}
+.body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--color-text);
+}
+.body-sm {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--color-muted);
+}
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+}
+.caption {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--dark-300);
+}
+.code,
+.mono {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+}
+.numeral {
+  font-family: var(--font-ticket);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+}
+
+/* ============================================================
+   GLOBAL SURFACE (use on <body> of preview cards)
+   ============================================================ */
+.asq-surface {
+  background-color: var(--dark-950);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  position: relative;
+}
+
+/* Noise overlay — copy of production pattern */
+.asq-noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Aurora orbs — use inside a .asq-surface */
+.asq-aurora {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 50%, var(--aurora-blue), transparent 25%),
+    radial-gradient(circle at 85% 30%, var(--aurora-orange), transparent 25%);
+}
+
+.asq-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   GLASSMORPHISM PRIMITIVES
+   ============================================================ */
+.glass-panel {
+  background: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.glass-card {
+  background: rgba(15, 15, 15, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: all var(--dur-slow) var(--ease-out);
+}
+
+/* ============================================================
+   BUTTON PRIMITIVES
+   ============================================================ */
+.btn-primary {
+  background: var(--primary-500);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--glow-primary);
+  border: none;
+  cursor: pointer;
+  transition: all var(--dur-base) var(--ease-out);
+}
+.btn-primary:active {
+  transform: scale(0.95);
+}
+.btn-primary:hover {
+  background: var(--primary-400);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--secondary-500);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--glow-secondary);
+  border: none;
+  cursor: pointer;
+  transition: all var(--dur-base) var(--ease-out);
+}
+.btn-secondary:active {
+  transform: scale(0.95);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid transparent;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--dur-base) var(--ease-out);
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.input-field {
+  width: 100%;
+  background: rgba(10, 10, 10, 0.5);
+  border: 1px solid var(--dark-700);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  color: #fff;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: all var(--dur-base) var(--ease-out);
+}
+.input-field::placeholder {
+  color: var(--dark-400);
+}
+.input-field:focus {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 1px var(--primary-500);
+}
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+@keyframes asq-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes asq-glow {
+  0% {
+    box-shadow: 0 0 10px rgba(0, 102, 255, 0.2);
+  }
+  100% {
+    box-shadow:
+      0 0 20px rgba(0, 102, 255, 0.6),
+      0 0 10px rgba(0, 102, 255, 0.4);
+  }
+}
+@keyframes asq-pulse-slow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+.anim-float {
+  animation: asq-float var(--dur-float) var(--ease-inout) infinite;
+}
+.anim-glow {
+  animation: asq-glow 2s var(--ease-inout) infinite alternate;
+}
+.anim-pulse-slow {
+  animation: asq-pulse-slow 4s var(--ease-inout) infinite;
+}
