@@ -16,6 +16,11 @@ import { resolve, join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import puppeteer from 'puppeteer'
 
+if (process.env.VERCEL) {
+  console.log('Skipping prerender on Vercel (pipeline admin deploy — no SEO needed).')
+  process.exit(0)
+}
+
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const DIST = resolve(__dirname, '..', 'dist')
 const PORT = 4173
